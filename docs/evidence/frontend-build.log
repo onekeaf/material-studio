@@ -1,0 +1,128 @@
+2026/10/28 12:09:53 http2: server: error reading preface from client //./pipe/docker_engine: file has already been closed
+#0 building with "default" instance using docker driver
+
+#1 [frontend internal] load .dockerignore
+#1 transferring context: 73B 0.1s done
+#1 DONE 0.1s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 448B 0.1s done
+#2 DONE 0.1s
+
+#3 [frontend internal] load metadata for docker.io/library/node:22.16.0-bookworm-slim
+#3 DONE 0.0s
+
+#4 [frontend runtime 1/4] FROM docker.io/library/node:22.16.0-bookworm-slim
+#4 DONE 0.0s
+
+#5 [frontend runtime 2/4] WORKDIR /app
+#5 CACHED
+
+#6 [frontend internal] load build context
+#6 transferring context: 311.83kB done
+#6 DONE -0.1s
+
+#7 [frontend build 3/6] COPY package*.json ./
+#7 CACHED
+
+#8 [frontend build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [frontend build 5/6] COPY . .
+#9 DONE 0.1s
+
+#10 [frontend build 6/6] RUN npm run lint && npm run typecheck && npm test && npm run build
+#10 0.153 
+#10 0.153 > material-studio@1.0.0 lint
+#10 0.153 > eslint .
+#10 0.153 
+#10 7.092 
+#10 7.092 /app/next.config.mjs
+#10 7.092   1:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+#10 7.092 
+#10 7.092 ✖ 1 problem (0 errors, 1 warning)
+#10 7.092 
+#10 7.552 
+#10 7.552 > material-studio@1.0.0 typecheck
+#10 7.552 > tsc --noEmit
+#10 7.552 
+#10 10.53 
+#10 10.53 > material-studio@1.0.0 test
+#10 10.53 > vitest run
+#10 10.53 
+#10 10.96 (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+#10 10.96   - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+#10 10.96 Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+#10 11.00 
+#10 11.00 [1m[30m[46m RUN [49m[39m[22m [36mv5.0.5 [39m[90m/app[39m
+#10 11.00 
+#10 11.22  [32m✓[39m lib/tasks.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+#10 11.23  [32m✓[39m lib/tracker.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+#10 13.54  [32m✓[39m components/Studio.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[33m 1087[2mms[22m[39m
+#10 13.54    [33m[2m✓[22m[39m shows multiple tasks separately and preserves running state on query error[33m 904[2mms[22m[39m
+#10 13.56 
+#10 13.56 [2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+#10 13.56 [2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+#10 13.56 [2m   Start at [22m 04:10:05
+#10 13.57 [2m   Duration [22m 2.56s[2m (tests 44%, environment 41%, import 8%, transform 7%, worker 1%)[22m
+#10 13.57 
+#10 13.69 
+#10 13.69 > material-studio@1.0.0 build
+#10 13.69 > next build
+#10 13.69 
+#10 14.38 ▲ Next.js 16.4.3 (Turbopack)
+#10 14.39 ✓ Running next.config.mjs took 18ms
+#10 14.47 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#10 14.47 This information is used to shape Next.js' roadmap and prioritize features.
+#10 14.47 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#10 14.47 https://nextjs.org/telemetry
+#10 14.47 
+#10 14.63 
+#10 14.66   Creating an optimized production build ...
+#10 17.80 ✓ Compiled successfully in 3.1s
+#10 17.82   Running TypeScript ...
+#10 17.82 
+#10 17.83   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+#10 17.83   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+#10 17.83 
+#10 17.83   	- allowJs was set to true
+#10 17.83   	- include was updated to add '.next/dev/types/**/*.ts'
+#10 17.83 
+#10 17.83   The following mandatory changes were made to your tsconfig.json:
+#10 17.83 
+#10 17.83   	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+#10 17.83 
+#10 20.46   Finished TypeScript in 2.6s ...
+#10 20.46   Collecting page data using 7 workers ...
+#10 21.23   Generating static pages using 7 workers (0/4) ...
+#10 22.07   Generating static pages using 7 workers (1/4) 
+#10 22.07   Generating static pages using 7 workers (2/4) 
+#10 22.07   Generating static pages using 7 workers (3/4) 
+#10 22.07 ✓ Generating static pages using 7 workers (4/4) in 849ms
+#10 22.08   Finalizing page optimization ...
+#10 22.53 
+#10 22.53 Route (app)
+#10 22.53 ┌ ○ /
+#10 22.53 ├ ○ /_not-found
+#10 22.53 ├ ƒ /api/[...path]
+#10 22.53 ├ ○ /history
+#10 22.53 └ ƒ /templates/[id]
+#10 22.53 
+#10 22.53 
+#10 22.53 ○  (Static)   prerendered as static content
+#10 22.53 ƒ  (Dynamic)  server-rendered on demand
+#10 22.53 
+#10 DONE 22.7s
+
+#11 [frontend runtime 3/4] COPY --from=build /app/.next/standalone ./
+#11 DONE 1.4s
+
+#12 [frontend runtime 4/4] COPY --from=build /app/.next/static ./.next/static
+#12 DONE 0.1s
+
+#13 [frontend] exporting to image
+#13 exporting layers
+#13 exporting layers 0.4s done
+#13 writing image sha256:6109b81fb6847d52ff74e13eb348a56e752fe9b66c3391b3e4924e99a42aec24 done
+#13 naming to docker.io/library/material-studio-frontend done
+#13 DONE 0.4s

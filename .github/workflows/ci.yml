@@ -1,0 +1,34 @@
+name: checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  containers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Lint, typecheck, tests and production builds in Docker
+        run: docker compose build
+      - name: Start application and MySQL
+        run: docker compose up -d --wait
+      - name: Verify asynchronous tasks and isolation
+        run: docker compose run --rm smoke
+      - name: Collect container logs
+        if: always()
+        run: docker compose logs --no-color > compose.log
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-evidence
+          path: |
+            compose.log
+            docs/evidence/smoke.json
+      - name: Clean up containers and test volumes
+        if: always()
+        run: docker compose down -v

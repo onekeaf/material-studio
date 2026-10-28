@@ -1,0 +1,8 @@
+ Container material-studio-mysql-1  Running
+ Container material-studio-backend-1  Running
+ Container material-studio-frontend-1  Running
+ Container material-studio-mysql-1  Waiting
+ Container material-studio-mysql-1  Healthy
+ Container material-studio-backend-1  Waiting
+ Container material-studio-backend-1  Healthy
+{"result": "PASS", "time": "2026-10-28T04:11:20Z", "checks": ["six templates", "real PNG upload", "invalid image rejected", "asset ownership", "async acceptance", "completion without queries", "three persisted steps", "terminal stability", "success result PNG", "task and result ownership", "three deterministic stage failures stop later steps", "three independent queued tasks", "personal history"]}

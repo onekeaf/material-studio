@@ -1,0 +1,1 @@
+{"result": "PASS", "checks": ["history pagination", "categories", "terminal history survives backend restart", "result file survives backend restart"], "tasks": 2}

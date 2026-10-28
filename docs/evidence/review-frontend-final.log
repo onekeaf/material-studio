@@ -1,0 +1,148 @@
+2026/10/28 15:59:05 http2: server: error reading preface from client //./pipe/docker_engine: file has already been closed
+#0 building with "default" instance using docker driver
+
+#1 [frontend internal] load .dockerignore
+#1 transferring context: 73B done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 448B done
+#2 DONE 0.0s
+
+#3 [frontend internal] load metadata for docker.io/library/node:22.16.0-bookworm-slim
+#3 DONE 0.0s
+
+#4 [frontend build 1/6] FROM docker.io/library/node:22.16.0-bookworm-slim
+#4 DONE 0.0s
+
+#5 [frontend internal] load build context
+#5 transferring context: 317.26kB 0.0s done
+#5 DONE 0.0s
+
+#6 [frontend build 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [frontend build 3/6] COPY package*.json ./
+#7 CACHED
+
+#8 [frontend build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [frontend build 5/6] COPY . .
+#9 DONE 0.0s
+
+#10 [frontend build 6/6] RUN npm run lint && npm run typecheck && npm test && npm run build
+#10 0.328 
+#10 0.328 > material-studio@1.0.0 lint
+#10 0.328 > eslint .
+#10 0.328 
+#10 4.189 
+#10 4.189 > material-studio@1.0.0 typecheck
+#10 4.189 > tsc --noEmit
+#10 4.189 
+#10 6.640 
+#10 6.640 > material-studio@1.0.0 test
+#10 6.640 > vitest run
+#10 6.640 
+#10 7.012 (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+#10 7.012   - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+#10 7.012 Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+#10 7.050 
+#10 7.050 [1m[30m[46m RUN [49m[39m[22m [36mv5.0.5 [39m[90m/app[39m
+#10 7.050 
+#10 7.233  [32m✓[39m lib/tracker.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+#10 7.234  [32m✓[39m lib/tasks.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+#10 11.60 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 11.60 [22m[39mThe current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 
+#10 11.60 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 11.60 [22m[39mThe current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 
+#10 11.60 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 11.60 [22m[39mThe current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 The current testing environment is not configured to support act(...)
+#10 11.60 
+#10 11.60 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 11.60 [22m[39mThe current testing environment is not configured to support act(...)
+#10 11.60 
+#10 12.49 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2ma late replaced upload cannot overwrite the selected server asset
+#10 12.49 [22m[39mThe current testing environment is not configured to support act(...)
+#10 12.49 
+#10 12.51  [32m✓[39m components/Studio.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[33m 4110[2mms[22m[39m
+#10 12.51    [33m[2m✓[22m[39m manual recovery queries the particular task, including records beyond page one[33m 2943[2mms[22m[39m
+#10 12.51    [33m[2m✓[22m[39m shows multiple tasks separately and preserves running state on query error[33m 816[2mms[22m[39m
+#10 12.51 
+#10 12.51 [2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+#10 12.51 [2m      Tests [22m [1m[32m14 passed[39m[22m[90m (14)[39m
+#10 12.51 [2m   Start at [22m 07:59:12
+#10 12.51 [2m   Duration [22m 5.45s[2m (tests 76%, environment 18%, import 4%, transform 3%)[22m
+#10 12.51 
+#10 12.64 
+#10 12.64 > material-studio@1.0.0 build
+#10 12.64 > next build
+#10 12.64 
+#10 13.15 ▲ Next.js 16.4.3 (Turbopack)
+#10 13.17 ✓ Running next.config.mjs took 22ms
+#10 13.18 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#10 13.18 This information is used to shape Next.js' roadmap and prioritize features.
+#10 13.18 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#10 13.18 https://nextjs.org/telemetry
+#10 13.18 
+#10 13.31 
+#10 13.34   Creating an optimized production build ...
+#10 17.24 ✓ Compiled successfully in 3.9s
+#10 17.26   Running TypeScript ...
+#10 17.27 
+#10 17.27   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+#10 17.27   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+#10 17.27 
+#10 17.27   	- allowJs was set to true
+#10 17.27   	- include was updated to add '.next/dev/types/**/*.ts'
+#10 17.27 
+#10 17.27   The following mandatory changes were made to your tsconfig.json:
+#10 17.27 
+#10 17.27   	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+#10 17.27 
+#10 18.44   Finished TypeScript in 3.2s ...
+#10 18.44   Collecting page data using 7 workers ...
+#10 19.30   Generating static pages using 7 workers (0/4) ...
+#10 20.21   Generating static pages using 7 workers (1/4) 
+#10 20.21   Generating static pages using 7 workers (2/4) 
+#10 20.21   Generating static pages using 7 workers (3/4) 
+#10 20.21 ✓ Generating static pages using 7 workers (4/4) in 915ms
+#10 20.22   Finalizing page optimization ...
+#10 20.50 
+#10 20.50 Route (app)
+#10 20.50 ┌ ○ /
+#10 20.50 ├ ○ /_not-found
+#10 20.50 ├ ƒ /api/[...path]
+#10 20.50 ├ ○ /history
+#10 20.50 └ ƒ /templates/[id]
+#10 20.50 
+#10 20.50 
+#10 20.50 ○  (Static)   prerendered as static content
+#10 20.50 ƒ  (Dynamic)  server-rendered on demand
+#10 20.50 
+#10 DONE 25.8s
+
+#6 [frontend build 2/6] WORKDIR /app
+#6 CACHED
+
+#11 [frontend runtime 3/4] COPY --from=build /app/.next/standalone ./
+#11 DONE 0.4s
+
+#12 [frontend runtime 4/4] COPY --from=build /app/.next/static ./.next/static
+#12 DONE 0.0s
+
+#13 [frontend] exporting to image
+#13 exporting layers
+#13 exporting layers 0.4s done
+#13 writing image sha256:09b9fd181d96193239e438d8da0fb00a203a06fba7ed3048c38277e85e53e9e0 done
+#13 naming to docker.io/library/material-studio-frontend done
+#13 DONE 0.4s

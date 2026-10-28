@@ -1,0 +1,77 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: studio
+      MYSQL_USER: studio
+      MYSQL_PASSWORD: ${DB_PASSWORD:-studio-local}
+      MYSQL_ROOT_PASSWORD: root-local
+    volumes:
+      - database:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: [CMD-SHELL, 'mysqladmin ping -h localhost -proot-local --silent']
+      interval: 5s
+      retries: 40
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/studio?allowPublicKeyRetrieval=true&useSSL=false
+      DB_USER: studio
+      DB_PASSWORD: ${DB_PASSWORD:-studio-local}
+      DATA_DIR: /data
+      DEMO_ENABLED: ${DEMO_ENABLED:-true}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes: [files:/data]
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD-SHELL, 'bash -c "echo > /dev/tcp/127.0.0.1/8080"']
+      interval: 5s
+      retries: 30
+  frontend:
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://backend:8080
+    ports: ['${FRONTEND_PORT:-3000}:3000']
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, node, -e, 'fetch("http://localhost:3000/api/health").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))']
+      interval: 5s
+      retries: 30
+  smoke:
+    image: python:3.12.10-slim
+    profiles: [checks]
+    working_dir: /tests
+    volumes:
+      - ./scripts:/tests:ro
+      - ./docs/evidence:/evidence
+      - ./demo-assets:/demo
+    command: [python, smoke.py]
+    depends_on: [frontend]
+  frontend-check:
+    profiles: [checks]
+    build:
+      context: ./frontend
+      target: build
+    command: [sh, -c, 'npm run lint && npm run typecheck && npm test && npm run build']
+  backend-check:
+    profiles: [checks]
+    build:
+      context: ./backend
+      target: build
+    command: [mvn, -B, verify]
+  demo:
+    image: python:3.12.10-slim
+    profiles: [checks]
+    volumes:
+      - ./scripts:/tests:ro
+      - ./demo-assets:/demo:ro
+    entrypoint: [python, /tests/demo.py]
+    depends_on: [frontend]
+volumes:
+  database:
+  files:

@@ -1,0 +1,124 @@
+#0 building with "default" instance using docker driver
+
+#1 [frontend-check internal] load .dockerignore
+#1 transferring context: 73B done
+#1 DONE 0.0s
+
+#2 [frontend-check internal] load build definition from Dockerfile
+#2 transferring dockerfile: 448B done
+#2 DONE 0.0s
+
+#3 [frontend-check internal] load metadata for docker.io/library/node:22.16.0-bookworm-slim
+#3 DONE 0.0s
+
+#4 [frontend-check build 1/6] FROM docker.io/library/node:22.16.0-bookworm-slim
+#4 DONE 0.0s
+
+#5 [frontend-check internal] load build context
+#5 transferring context: 1.01kB 0.0s done
+#5 DONE 0.0s
+
+#6 [frontend-check build 4/6] RUN npm ci
+#6 CACHED
+
+#7 [frontend-check build 2/6] WORKDIR /app
+#7 CACHED
+
+#8 [frontend-check build 3/6] COPY package*.json ./
+#8 CACHED
+
+#9 [frontend-check build 5/6] COPY . .
+#9 CACHED
+
+#10 [frontend-check build 6/6] RUN npm run lint && npm run typecheck && npm test && npm run build
+#10 CACHED
+
+#11 [frontend-check] exporting to image
+#11 exporting layers
+#11 exporting layers 1.9s done
+#11 writing image sha256:1c55dfaa0f0fa805df292d3c6d41b69ccef8967bcc5c7b513d488c79eca84be2 done
+#11 naming to docker.io/library/material-studio-frontend-check 0.0s done
+#11 DONE 1.9s
+
+> material-studio@1.0.0 lint
+> eslint .
+
+
+> material-studio@1.0.0 typecheck
+> tsc --noEmit
+
+
+> material-studio@1.0.0 test
+> vitest run
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.0.5 /app
+
+ ✓ lib/tasks.test.ts (5 tests) 6ms
+ ✓ lib/tracker.test.ts (4 tests) 10ms
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > a late replaced upload cannot overwrite the selected server asset
+The current testing environment is not configured to support act(...)
+
+ ✓ components/Studio.test.tsx (9 tests) 4215ms
+   ✓ manual recovery queries the particular task, including records beyond page one 2947ms
+   ✓ shows multiple tasks separately and preserves running state on query error 817ms
+
+ Test Files  3 passed (3)
+      Tests  18 passed (18)
+   Start at  08:16:01
+   Duration  5.27s (tests 81%, environment 14%, import 4%, transform 1%)
+
+
+> material-studio@1.0.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.mjs took 17ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 520ms
+  Running TypeScript ...
+  Finished TypeScript in 1755ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/4) ...
+  Generating static pages using 7 workers (1/4) 
+  Generating static pages using 7 workers (2/4) 
+  Generating static pages using 7 workers (3/4) 
+✓ Generating static pages using 7 workers (4/4) in 628ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/[...path]
+├ ○ /history
+└ ƒ /templates/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+

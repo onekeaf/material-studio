@@ -1,0 +1,9 @@
+ Container studio-config-check-mysql-1  Running
+ Container studio-config-check-backend-1  Running
+ Container studio-config-check-frontend-1  Running
+ Container studio-config-check-mysql-1  Waiting
+ Container studio-config-check-mysql-1  Healthy
+ Container studio-config-check-backend-1  Waiting
+ Container studio-config-check-backend-1  Healthy
+{"result": "PASS", "checks": ["non-demo capability flag", "switch endpoint disabled", "simulation parameters rejected", "default task generation still works", "private result readable"]}
+
