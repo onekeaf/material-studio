@@ -1,0 +1,8 @@
+ Container studio-fix-release-mysql-1  Running
+ Container studio-fix-release-backend-1  Running
+ Container studio-fix-release-frontend-1  Running
+ Container studio-fix-release-mysql-1  Waiting
+ Container studio-fix-release-mysql-1  Healthy
+ Container studio-fix-release-backend-1  Waiting
+ Container studio-fix-release-backend-1  Healthy
+{"result": "PASS", "time": "2026-10-29T02:21:46Z", "checks": ["twelve templates and local PNG covers", "three categories and 1/2/3 image requirements", "one/two/three asset tasks", "real PNG upload", "invalid and damaged images rejected", "oversized file rejected", "asset ownership and duplicate assets", "unauthenticated and cross-user access denied", "invalid pagination and simulation parameters", "active and pending-result boundaries", "async acceptance", "completion without queries", "three persisted steps", "terminal stability", "success result PNG", "task and result ownership", "three deterministic stage failures stop later steps", "three independent queued tasks", "personal history and pagination"]}

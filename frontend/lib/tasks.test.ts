@@ -37,4 +37,21 @@ describe("task isolation", () => {
   });
   it("server failure is terminal", () =>
     expect(pending({ ...a, status: "FAILED" })).toBe(false));
+  it("successful recovery removes the query warning without changing other tasks", () => {
+    const failedQuery = queryFailed([a, b], "a");
+    const recovered = mergeTask(failedQuery, { ...a, status: "SUCCEEDED", stateVersion: 3, resultUrl: "/result" });
+    expect(recovered[0].queryError).toBeUndefined();
+    expect(recovered[0].resultUrl).toBe("/result");
+    expect(recovered[1]).toEqual(b);
+  });
+  it("a late running snapshot cannot replace a newer terminal state", () => {
+    const done = { ...a, status: "SUCCEEDED", stateVersion: 5, resultUrl: "/result" };
+    expect(mergeTask([done, b], { ...a, stateVersion: 3 })).toEqual([done, b]);
+  });
+  it("a query failure for an unknown task does not change other cards", () => {
+    expect(queryFailed([a, b], "missing")).toEqual([a, b]);
+  });
+  it.each(["SUCCEEDED", "FAILED"])("%s is terminal", (status) => {
+    expect(pending({ ...a, status })).toBe(false);
+  });
 });

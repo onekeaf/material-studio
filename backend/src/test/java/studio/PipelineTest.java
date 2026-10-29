@@ -5,8 +5,44 @@ import static org.mockito.Mockito.*;
 
 import java.util.*;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PipelineTest {
+  @ParameterizedTest
+  @ValueSource(strings = {"ASSET_CHECK", "GENERATE", "FINALIZE"})
+  void actualExceptionAtAnyStageRecordsFailureAndSkipsLaterSteps(String stage) {
+    Store store = mock(Store.class);
+    Pipeline pipeline = new Pipeline(store);
+    List<String> visited = new ArrayList<>();
+    try {
+      pipeline.execute("broken", new Pipeline.Simulation(null, 0, 0, 0), current -> {
+        visited.add(current);
+        if (current.equals(stage)) throw new java.io.IOException("文件不可用");
+      });
+      assertEquals(Pipeline.STAGES.subList(0, Pipeline.STAGES.indexOf(stage) + 1), visited);
+      verify(store).step("broken", stage, "FAILED", "文件不可用");
+      verify(store).update("broken", "FAILED", stage, "文件不可用", null);
+      verify(store, never()).update(eq("broken"), eq("SUCCEEDED"), any(), any(), any());
+    } finally { pipeline.close(); }
+  }
+
+  @Test
+  void fullQueueRejectsAdditionalTasksWithoutBlockingTheCaller() throws Exception {
+    Pipeline pipeline = new Pipeline(mock(Store.class));
+    var entered = new java.util.concurrent.CountDownLatch(1);
+    var release = new java.util.concurrent.CountDownLatch(1);
+    var config = new Pipeline.Simulation(null, 0, 0, 0);
+    try {
+      pipeline.submit("running", config, stage -> {
+        if (stage.equals("ASSET_CHECK")) { entered.countDown(); release.await(); }
+      });
+      assertTrue(entered.await(3, java.util.concurrent.TimeUnit.SECONDS));
+      for (int i = 0; i < 64; i++) pipeline.submit("queued-" + i, config, stage -> {});
+      assertThrows(java.util.concurrent.RejectedExecutionException.class,
+          () -> pipeline.submit("overflow", config, stage -> {}));
+    } finally { release.countDown(); pipeline.close(); }
+  }
   @Test
   void asynchronousSubmissionDoesNotWaitForStage() throws Exception {
     Store store = mock(Store.class);

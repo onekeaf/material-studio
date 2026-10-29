@@ -1,6 +1,16 @@
 # 本地容器验收记录
 
-日期：2026-10-28；执行环境：Windows 上的 Docker Desktop Linux 容器。最新源码经过以下验证；本文件记录本地检查；远程 CI 状态以 https://github.com/onekeaf/material-studio/actions 中对应提交的运行结果为准。公网部署和灾备恢复没有执行。
+## 2026-10-29 修复及扩展测试
+
+- `frontend-check`：lint、类型检查、37 个测试和生产构建通过，见 `evidence/fix-expanded-frontend.log`。
+- `backend-check`：25 个 Java 测试通过，Maven verify 和打包通过，见 `evidence/fix-expanded-backend.log`。
+- 新建隔离 Compose 项目、空 MySQL 和文件卷启动应用后运行扩展 smoke：12 张本地封面、各阶段失败中断、无需查询完成、多任务、三种图片数、损坏/超限文件、身份隔离、分页和参数边界通过，见 `evidence/fix-expanded-smoke.log` 和 `evidence/smoke.json`。
+- 同身份重新加载、任务仍运行后完成、再次恢复、实际步骤异常、队列饱和、空列表与请求失败区分都有回归测试。桌面、390px 与真实损坏图片反馈的本轮画面见 `evidence/fix-*.jpg`。
+- R-01～R-14 与证据、人工检查和未验证边界的对应表见 `test-matrix.md`。跨浏览器、压力、正式无障碍和灾备恢复未执行。
+
+## 2026-10-28 历史记录
+
+日期：2026-10-28；执行环境：Windows 上的 Docker Desktop Linux 容器。以下是当时版本的历史验证；远程 CI 状态以 https://github.com/onekeaf/material-studio/actions 中对应提交的运行结果为准。公网部署和灾备恢复没有执行。
 
 ## 验证入口与结果
 

@@ -1,0 +1,239 @@
+#0 building with "default" instance using docker driver
+
+#1 [frontend-check internal] load .dockerignore
+#1 transferring context: 73B done
+#1 DONE 0.0s
+
+#2 [frontend-check internal] load build definition from Dockerfile
+#2 transferring dockerfile: 448B done
+#2 DONE 0.0s
+
+#3 [frontend-check internal] load metadata for docker.io/library/node:22.16.0-bookworm-slim
+#3 DONE 0.0s
+
+#4 [frontend-check build 1/6] FROM docker.io/library/node:22.16.0-bookworm-slim
+#4 DONE 0.0s
+
+#5 [frontend-check internal] load build context
+#5 transferring context: 35.22kB 0.0s done
+#5 DONE 0.0s
+
+#6 [frontend-check build 3/6] COPY package*.json ./
+#6 CACHED
+
+#7 [frontend-check build 2/6] WORKDIR /app
+#7 CACHED
+
+#8 [frontend-check build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [frontend-check build 5/6] COPY . .
+#9 DONE 0.0s
+
+#10 [frontend-check build 6/6] RUN npm run lint && npm run typecheck && npm test && npm run build
+#10 0.405 
+#10 0.405 > material-studio@1.0.0 lint
+#10 0.405 > eslint .
+#10 0.405 
+#10 5.437 
+#10 5.437 > material-studio@1.0.0 typecheck
+#10 5.437 > tsc --noEmit
+#10 5.437 
+#10 8.605 
+#10 8.605 > material-studio@1.0.0 test
+#10 8.605 > vitest run
+#10 8.605 
+#10 9.007 (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+#10 9.007   - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+#10 9.007 Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+#10 9.056 
+#10 9.056 [1m[30m[46m RUN [49m[39m[22m [36mv5.0.5 [39m[90m/app[39m
+#10 9.056 
+#10 9.397  [32m✓[39m lib/tracker.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+#10 9.437  [32m✓[39m lib/tasks.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+#10 11.73  [32m✓[39m components/StudioScenarios.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 684[2mms[22m[39m
+#10 11.73    [33m[2m✓[22m[39m filters categories and opens the selected template with its required slots[33m 346[2mms[22m[39m
+#10 14.40 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 14.40 [22m[39mThe current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 
+#10 14.40 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 14.40 [22m[39mThe current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 
+#10 14.40 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 14.40 [22m[39mThe current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 The current testing environment is not configured to support act(...)
+#10 14.40 
+#10 14.40 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2mserializes identity changes and clears the previous identity records
+#10 14.40 [22m[39mThe current testing environment is not configured to support act(...)
+#10 14.40 
+#10 15.33 [90mstderr[2m | components/Studio.test.tsx[2m > [22m[2ma late replaced upload cannot overwrite the selected server asset
+#10 15.33 [22m[39mThe current testing environment is not configured to support act(...)
+#10 15.33 
+#10 15.44  [32m✓[39m components/Studio.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 4392[2mms[22m[39m
+#10 15.44    [33m[2m✓[22m[39m manual recovery queries the particular task, including records beyond page one[33m 2981[2mms[22m[39m
+#10 15.44    [33m[2m✓[22m[39m shows multiple tasks separately and preserves running state on query error[33m 820[2mms[22m[39m
+#10 16.91  [32m✓[39m components/StudioRecovery.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 5853[2mms[22m[39m
+#10 16.91    [33m[2m✓[22m[39m same-user reload keeps tracking until SUCCEEDED[33m 1147[2mms[22m[39m
+#10 16.91    [33m[2m✓[22m[39m same-user reload keeps tracking until FAILED[33m 885[2mms[22m[39m
+#10 16.91    [33m[2m✓[22m[39m continues polling a still-running task after reinitialization[33m 2956[2mms[22m[39m
+#10 16.91    [33m[2m✓[22m[39m can recover again after initialization itself temporarily fails[33m 863[2mms[22m[39m
+#10 16.92 
+#10 16.92 [2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+#10 16.92 [2m      Tests [22m [1m[32m37 passed[39m[22m[90m (37)[39m
+#10 16.92 [2m   Start at [22m 02:20:56
+#10 16.92 [2m   Duration [22m 7.85s[2m (tests 66%, environment 25%, transform 5%, import 4%)[22m
+#10 16.92 
+#10 17.06 
+#10 17.06 > material-studio@1.0.0 build
+#10 17.06 > next build
+#10 17.06 
+#10 17.86 ▲ Next.js 16.4.3 (Turbopack)
+#10 17.90 ✓ Running next.config.mjs took 40ms
+#10 17.91 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#10 17.91 This information is used to shape Next.js' roadmap and prioritize features.
+#10 17.91 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#10 17.91 https://nextjs.org/telemetry
+#10 17.91 
+#10 18.18 
+#10 18.21   Creating an optimized production build ...
+#10 21.91 ✓ Compiled successfully in 3.7s
+#10 21.92   Running TypeScript ...
+#10 21.94 
+#10 21.94   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+#10 21.94   The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+#10 21.94 
+#10 21.94   	- allowJs was set to true
+#10 21.94   	- include was updated to add '.next/dev/types/**/*.ts'
+#10 21.94 
+#10 21.94   The following mandatory changes were made to your tsconfig.json:
+#10 21.94 
+#10 21.94   	- jsx was set to react-jsx (next.js uses the React automatic runtime)
+#10 21.94 
+#10 24.71   Finished TypeScript in 4.8s ...
+#10 24.72   Collecting page data using 7 workers ...
+#10 26.28   Generating static pages using 7 workers (0/4) ...
+#10 28.31   Generating static pages using 7 workers (1/4) 
+#10 28.32   Generating static pages using 7 workers (2/4) 
+#10 28.32   Generating static pages using 7 workers (3/4) 
+#10 28.33 ✓ Generating static pages using 7 workers (4/4) in 2.0s
+#10 28.33   Finalizing page optimization ...
+#10 28.82 
+#10 28.83 Route (app)
+#10 28.83 ┌ ○ /
+#10 28.83 ├ ○ /_not-found
+#10 28.83 ├ ƒ /api/[...path]
+#10 28.83 ├ ○ /history
+#10 28.83 └ ƒ /templates/[id]
+#10 28.83 
+#10 28.83 
+#10 28.83 ○  (Static)   prerendered as static content
+#10 28.83 ƒ  (Dynamic)  server-rendered on demand
+#10 28.83 
+#10 DONE 29.0s
+
+#11 [frontend-check] exporting to image
+#11 exporting layers
+#11 exporting layers 1.2s done
+#11 writing image sha256:600a20ea7b0eeb4fa1c92eeb171eb41c7c4bbd036f358cc48f93c05d43c006b8 done
+#11 naming to docker.io/library/material-studio-frontend-check done
+#11 DONE 1.2s
+
+> material-studio@1.0.0 lint
+> eslint .
+
+
+> material-studio@1.0.0 typecheck
+> tsc --noEmit
+
+
+> material-studio@1.0.0 test
+> vitest run
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.5 [39m[90m/app[39m
+
+ [32m✓[39m lib/tasks.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m lib/tracker.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m components/StudioScenarios.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 1617[2mms[22m[39m
+   [33m[2m✓[22m[39m filters categories and opens the selected template with its required slots[33m 783[2mms[22m[39m
+   [33m[2m✓[22m[39m requires both server uploads and disables submission while either is pending[33m 324[2mms[22m[39m
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > serializes identity changes and clears the previous identity records
+The current testing environment is not configured to support act(...)
+
+stderr | components/Studio.test.tsx > a late replaced upload cannot overwrite the selected server asset
+The current testing environment is not configured to support act(...)
+
+ [32m✓[39m components/Studio.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 5327[2mms[22m[39m
+   [33m[2m✓[22m[39m retains existing history when recovering a failed reload also fails[33m 645[2mms[22m[39m
+   [33m[2m✓[22m[39m manual recovery queries the particular task, including records beyond page one[33m 2980[2mms[22m[39m
+   [33m[2m✓[22m[39m shows multiple tasks separately and preserves running state on query error[33m 854[2mms[22m[39m
+ [32m✓[39m components/StudioRecovery.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 6430[2mms[22m[39m
+   [33m[2m✓[22m[39m same-user reload keeps tracking until SUCCEEDED[33m 1529[2mms[22m[39m
+   [33m[2m✓[22m[39m same-user reload keeps tracking until FAILED[33m 981[2mms[22m[39m
+   [33m[2m✓[22m[39m continues polling a still-running task after reinitialization[33m 2933[2mms[22m[39m
+   [33m[2m✓[22m[39m can recover again after initialization itself temporarily fails[33m 981[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m37 passed[39m[22m[90m (37)[39m
+[2m   Start at [22m 02:21:26
+[2m   Duration [22m 9.57s[2m (tests 62%, environment 32%, import 6%, transform 1%)[22m
+
+
+> material-studio@1.0.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.mjs took 21ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 918ms
+  Running TypeScript ...
+  Finished TypeScript in 2.7s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/4) ...
+  Generating static pages using 7 workers (1/4) 
+  Generating static pages using 7 workers (2/4) 
+  Generating static pages using 7 workers (3/4) 
+✓ Generating static pages using 7 workers (4/4) in 831ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/[...path]
+├ ○ /history
+└ ƒ /templates/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

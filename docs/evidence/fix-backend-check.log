@@ -1,0 +1,103 @@
+2026/10/29 10:04:57 http2: server: error reading preface from client //./pipe/docker_engine: file has already been closed
+#0 building with "default" instance using docker driver
+
+#1 [backend-check internal] load .dockerignore
+#1 transferring context: 47B 0.0s done
+#1 DONE 0.0s
+
+#2 [backend-check internal] load build definition from Dockerfile
+#2 transferring dockerfile: 357B 0.0s done
+#2 DONE 0.1s
+
+#3 [backend-check internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#3 DONE 0.0s
+
+#4 [backend-check build 1/6] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21
+#4 DONE 0.0s
+
+#5 [backend-check internal] load build context
+#5 transferring context: 782B 0.0s done
+#5 DONE 0.0s
+
+#6 [backend-check build 4/6] RUN mvn -B dependency:go-offline
+#6 CACHED
+
+#7 [backend-check build 5/6] COPY src src
+#7 CACHED
+
+#8 [backend-check build 3/6] COPY pom.xml .
+#8 CACHED
+
+#9 [backend-check build 2/6] WORKDIR /app
+#9 CACHED
+
+#10 [backend-check build 6/6] RUN mvn -B verify
+#10 CACHED
+
+#11 [backend-check] exporting to image
+#11 exporting layers
+#11 exporting layers 0.3s done
+#11 writing image sha256:a8fd6d3ba8860e182607aed489871d7936167c5515eaa237c28abef97a6cbe87 done
+#11 naming to docker.io/library/material-studio-backend-check done
+#11 DONE 0.3s
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< studio:material-studio >-----------------------
+[INFO] Building material-studio 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ material-studio ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ material-studio ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ material-studio ---
+[INFO] skip non existing resourceDirectory /app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ material-studio ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ material-studio ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running studio.PipelineTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.648 s -- in studio.PipelineTest
+[INFO] Running studio.UploadTest
+02:05:10.529 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+02:05:10.531 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+02:05:10.535 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 3 ms
+02:05:10.694 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+02:05:10.694 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+02:05:10.694 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.559 s -- in studio.UploadTest
+[INFO] Running studio.ParameterTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.087 s -- in studio.ParameterTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ material-studio ---
+[INFO] 
+[INFO] --- spring-boot:3.5.7:repackage (repackage) @ material-studio ---
+[INFO] Replacing main artifact /app/target/material-studio-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /app/target/material-studio-1.0.0.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.800 s
+[INFO] Finished at: 2026-10-29T02:05:11Z
+[INFO] ------------------------------------------------------------------------

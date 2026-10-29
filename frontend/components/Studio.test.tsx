@@ -176,6 +176,24 @@ it("requires server-ready upload and restores submission after acceptance", asyn
   expect(screen.getByRole("button", { name: "开始制作" })).toBeTruthy();
   expect(screen.getByText("排队中")).toBeTruthy();
 });
+
+it("shows the server rejection of a damaged image and keeps submission disabled", async () => {
+  setup();
+  const original = vi.mocked(fetch).getMockImplementation()!;
+  vi.mocked(fetch).mockImplementation((url, options) =>
+    url === "/api/assets"
+      ? Promise.resolve(Response.json({ message: "图片内容损坏，请重新选择有效的 JPEG 或 PNG 图片" }, { status: 415 }))
+      : original(url, options),
+  );
+  render(<Studio initialTemplate="portrait" />);
+  await screen.findByRole("button", { name: "开始制作" });
+  fireEvent.change(screen.getByLabelText("选择第1张图片"), {
+    target: { files: [new File(["broken"], "broken.png", { type: "image/png" })] },
+  });
+  expect(await screen.findByText("图片内容损坏，请重新选择有效的 JPEG 或 PNG 图片")).toBeTruthy();
+  expect((screen.getByRole("button", { name: "开始制作" }) as HTMLButtonElement).disabled).toBe(true);
+  expect(screen.queryByAltText("素材1")).toBeNull();
+});
 it("a late replaced upload cannot overwrite the selected server asset", async () => {
   setup();
   render(<Studio initialTemplate="portrait" />);
@@ -223,7 +241,7 @@ it("hides identity switching when the backend disables demo mode", async () => {
       : original(url, options),
   );
   render(<Studio />);
-  await screen.findByText("把照片，变成新的故事。");
+  await screen.findByRole("heading", { name: "模板素材" });
   fireEvent.click(screen.getByRole("button", { name: /访客 / }));
   expect(screen.getByRole("dialog", { name: "当前访客" })).toBeTruthy();
   expect(screen.queryByRole("button", { name: "访客 A" })).toBeNull();

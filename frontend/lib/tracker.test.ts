@@ -65,3 +65,29 @@ it("query exception reports only that task and other tasks continue", async () =
   expect(receive).toHaveBeenCalledWith({ id: "b" });
   stop();
 });
+it("a transient query error can recover on a later poll", async () => {
+  vi.useFakeTimers();
+  const receive = vi.fn(), failed = vi.fn();
+  let count = 0;
+  const stop = trackTasks(["a"], async () => {
+    if (++count === 1) throw Error("offline");
+    return { id: "a", status: "SUCCEEDED" } as Task;
+  }, receive, failed, () => true);
+  await vi.advanceTimersByTimeAsync(800);
+  expect(failed).toHaveBeenCalledWith("a");
+  await vi.advanceTimersByTimeAsync(2000);
+  expect(receive).toHaveBeenCalledWith({ id: "a", status: "SUCCEEDED" });
+  stop();
+});
+it("cancels both a late rejection and future polling when leaving", async () => {
+  vi.useFakeTimers();
+  let reject!: (reason: Error) => void;
+  const failed = vi.fn();
+  const fetch = vi.fn(() => new Promise<Task>((_, r) => { reject = r; }));
+  const stop = trackTasks(["a"], fetch, vi.fn(), failed, () => true);
+  await vi.advanceTimersByTimeAsync(800);
+  stop(); reject(Error("late network failure"));
+  await vi.advanceTimersByTimeAsync(5000);
+  expect(failed).not.toHaveBeenCalled();
+  expect(fetch).toHaveBeenCalledTimes(1);
+});

@@ -1,11 +1,17 @@
 {
   "result": "PASS",
-  "time": "2026-10-28T08:16:18Z",
+  "time": "2026-10-29T02:21:46Z",
   "checks": [
-    "six templates",
+    "twelve templates and local PNG covers",
+    "three categories and 1/2/3 image requirements",
+    "one/two/three asset tasks",
     "real PNG upload",
-    "invalid image rejected",
-    "asset ownership",
+    "invalid and damaged images rejected",
+    "oversized file rejected",
+    "asset ownership and duplicate assets",
+    "unauthenticated and cross-user access denied",
+    "invalid pagination and simulation parameters",
+    "active and pending-result boundaries",
     "async acceptance",
     "completion without queries",
     "three persisted steps",
@@ -14,41 +20,41 @@
     "task and result ownership",
     "three deterministic stage failures stop later steps",
     "three independent queued tasks",
-    "personal history"
+    "personal history and pagination"
   ],
   "tasks": [
     {
       "stateVersion": 4,
-      "finishedAt": "2026-10-28T08:16:13.124+00:00",
-      "createdAt": "2026-10-28T08:16:10.592+00:00",
+      "finishedAt": "2026-10-29T02:21:40.867+00:00",
+      "createdAt": "2026-10-29T02:21:38.331+00:00",
       "templateId": "portrait",
-      "id": "d4e0bdf6-d88d-4b13-8ef1-a96698ecc7c8",
+      "id": "115b3e9b-88c3-4e31-8b5a-72a6026f3932",
       "currentStage": "FINALIZE",
       "title": "午后肖像",
       "status": "SUCCEEDED",
-      "resultUrl": "/api/tasks/d4e0bdf6-d88d-4b13-8ef1-a96698ecc7c8/result",
+      "resultUrl": "/api/tasks/115b3e9b-88c3-4e31-8b5a-72a6026f3932/result",
       "steps": [
         {
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:11.446+00:00",
-          "startedAt": "2026-10-28T08:16:10.634+00:00",
-          "taskId": "d4e0bdf6-d88d-4b13-8ef1-a96698ecc7c8",
+          "finishedAt": "2026-10-29T02:21:38.351+00:00",
+          "startedAt": "2026-10-29T02:21:38.378+00:00",
+          "taskId": "115b3e9b-88c3-4e31-8b5a-72a6026f3932",
           "sequenceNo": 0,
           "status": "SUCCEEDED"
         },
         {
           "stage": "GENERATE",
-          "finishedAt": "2026-10-28T08:16:12.265+00:00",
-          "startedAt": "2026-10-28T08:16:11.458+00:00",
-          "taskId": "d4e0bdf6-d88d-4b13-8ef1-a96698ecc7c8",
+          "finishedAt": "2026-10-29T02:21:39.572+00:00",
+          "startedAt": "2026-10-29T02:21:38.367+00:00",
+          "taskId": "115b3e9b-88c3-4e31-8b5a-72a6026f3932",
           "sequenceNo": 1,
           "status": "SUCCEEDED"
         },
         {
           "stage": "FINALIZE",
-          "finishedAt": "2026-10-28T08:16:13.117+00:00",
-          "startedAt": "2026-10-28T08:16:12.277+00:00",
-          "taskId": "d4e0bdf6-d88d-4b13-8ef1-a96698ecc7c8",
+          "finishedAt": "2026-10-29T02:21:40.861+00:00",
+          "startedAt": "2026-10-29T02:21:39.590+00:00",
+          "taskId": "115b3e9b-88c3-4e31-8b5a-72a6026f3932",
           "sequenceNo": 2,
           "status": "SUCCEEDED"
         }
@@ -57,10 +63,10 @@
     {
       "errorMessage": "素材检查未能完成：已触发演示失败，请新建任务",
       "stateVersion": 2,
-      "finishedAt": "2026-10-28T08:16:14.796+00:00",
-      "createdAt": "2026-10-28T08:16:14.711+00:00",
+      "finishedAt": "2026-10-29T02:21:42.480+00:00",
+      "createdAt": "2026-10-29T02:21:42.377+00:00",
       "templateId": "portrait",
-      "id": "4e692bd5-cd46-4811-b673-b23c6e88f5c8",
+      "id": "b4e04741-5f76-440a-b029-cbcf290f7060",
       "currentStage": "ASSET_CHECK",
       "title": "午后肖像",
       "status": "FAILED",
@@ -69,21 +75,21 @@
         {
           "errorMessage": "素材检查未能完成：已触发演示失败，请新建任务",
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:14.791+00:00",
-          "startedAt": "2026-10-28T08:16:14.733+00:00",
-          "taskId": "4e692bd5-cd46-4811-b673-b23c6e88f5c8",
+          "finishedAt": "2026-10-29T02:21:42.471+00:00",
+          "startedAt": "2026-10-29T02:21:42.412+00:00",
+          "taskId": "b4e04741-5f76-440a-b029-cbcf290f7060",
           "sequenceNo": 0,
           "status": "FAILED"
         },
         {
           "stage": "GENERATE",
-          "taskId": "4e692bd5-cd46-4811-b673-b23c6e88f5c8",
+          "taskId": "b4e04741-5f76-440a-b029-cbcf290f7060",
           "sequenceNo": 1,
           "status": "PENDING"
         },
         {
           "stage": "FINALIZE",
-          "taskId": "4e692bd5-cd46-4811-b673-b23c6e88f5c8",
+          "taskId": "b4e04741-5f76-440a-b029-cbcf290f7060",
           "sequenceNo": 2,
           "status": "PENDING"
         }
@@ -92,10 +98,10 @@
     {
       "errorMessage": "模拟生成未能完成：已触发演示失败，请新建任务",
       "stateVersion": 3,
-      "finishedAt": "2026-10-28T08:16:15.021+00:00",
-      "createdAt": "2026-10-28T08:16:14.868+00:00",
+      "finishedAt": "2026-10-29T02:21:42.719+00:00",
+      "createdAt": "2026-10-29T02:21:42.562+00:00",
       "templateId": "portrait",
-      "id": "fb5b2130-7606-4b00-9614-e01b7bc55dd0",
+      "id": "2f7cfa97-5962-4e3f-91de-18d4bc311717",
       "currentStage": "GENERATE",
       "title": "午后肖像",
       "status": "FAILED",
@@ -103,24 +109,24 @@
       "steps": [
         {
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:14.949+00:00",
-          "startedAt": "2026-10-28T08:16:14.890+00:00",
-          "taskId": "fb5b2130-7606-4b00-9614-e01b7bc55dd0",
+          "finishedAt": "2026-10-29T02:21:42.645+00:00",
+          "startedAt": "2026-10-29T02:21:42.586+00:00",
+          "taskId": "2f7cfa97-5962-4e3f-91de-18d4bc311717",
           "sequenceNo": 0,
           "status": "SUCCEEDED"
         },
         {
           "errorMessage": "模拟生成未能完成：已触发演示失败，请新建任务",
           "stage": "GENERATE",
-          "finishedAt": "2026-10-28T08:16:15.015+00:00",
-          "startedAt": "2026-10-28T08:16:14.959+00:00",
-          "taskId": "fb5b2130-7606-4b00-9614-e01b7bc55dd0",
+          "finishedAt": "2026-10-29T02:21:42.713+00:00",
+          "startedAt": "2026-10-29T02:21:42.655+00:00",
+          "taskId": "2f7cfa97-5962-4e3f-91de-18d4bc311717",
           "sequenceNo": 1,
           "status": "FAILED"
         },
         {
           "stage": "FINALIZE",
-          "taskId": "fb5b2130-7606-4b00-9614-e01b7bc55dd0",
+          "taskId": "2f7cfa97-5962-4e3f-91de-18d4bc311717",
           "sequenceNo": 2,
           "status": "PENDING"
         }
@@ -129,10 +135,10 @@
     {
       "errorMessage": "结果整理未能完成：已触发演示失败，请新建任务",
       "stateVersion": 4,
-      "finishedAt": "2026-10-28T08:16:15.363+00:00",
-      "createdAt": "2026-10-28T08:16:15.143+00:00",
+      "finishedAt": "2026-10-29T02:21:43.124+00:00",
+      "createdAt": "2026-10-29T02:21:42.843+00:00",
       "templateId": "portrait",
-      "id": "544d730b-d460-4a1f-8fcd-b8d0f53c80c7",
+      "id": "cf4b6799-c549-4faf-afcb-550d619e0a84",
       "currentStage": "FINALIZE",
       "title": "午后肖像",
       "status": "FAILED",
@@ -140,26 +146,26 @@
       "steps": [
         {
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:15.224+00:00",
-          "startedAt": "2026-10-28T08:16:15.162+00:00",
-          "taskId": "544d730b-d460-4a1f-8fcd-b8d0f53c80c7",
+          "finishedAt": "2026-10-29T02:21:42.925+00:00",
+          "startedAt": "2026-10-29T02:21:42.864+00:00",
+          "taskId": "cf4b6799-c549-4faf-afcb-550d619e0a84",
           "sequenceNo": 0,
           "status": "SUCCEEDED"
         },
         {
           "stage": "GENERATE",
-          "finishedAt": "2026-10-28T08:16:15.291+00:00",
-          "startedAt": "2026-10-28T08:16:15.235+00:00",
-          "taskId": "544d730b-d460-4a1f-8fcd-b8d0f53c80c7",
+          "finishedAt": "2026-10-29T02:21:43.013+00:00",
+          "startedAt": "2026-10-29T02:21:42.945+00:00",
+          "taskId": "cf4b6799-c549-4faf-afcb-550d619e0a84",
           "sequenceNo": 1,
           "status": "SUCCEEDED"
         },
         {
           "errorMessage": "结果整理未能完成：已触发演示失败，请新建任务",
           "stage": "FINALIZE",
-          "finishedAt": "2026-10-28T08:16:15.357+00:00",
-          "startedAt": "2026-10-28T08:16:15.300+00:00",
-          "taskId": "544d730b-d460-4a1f-8fcd-b8d0f53c80c7",
+          "finishedAt": "2026-10-29T02:21:43.079+00:00",
+          "startedAt": "2026-10-29T02:21:43.023+00:00",
+          "taskId": "cf4b6799-c549-4faf-afcb-550d619e0a84",
           "sequenceNo": 2,
           "status": "FAILED"
         }
@@ -168,10 +174,10 @@
     {
       "errorMessage": "素材检查未能完成：已触发演示失败，请新建任务",
       "stateVersion": 2,
-      "finishedAt": "2026-10-28T08:16:15.506+00:00",
-      "createdAt": "2026-10-28T08:16:15.416+00:00",
+      "finishedAt": "2026-10-29T02:21:43.323+00:00",
+      "createdAt": "2026-10-29T02:21:43.237+00:00",
       "templateId": "portrait",
-      "id": "eb1fc7dd-4c45-4ef3-a22f-92238f796afc",
+      "id": "f2722469-dd8a-4ee7-b1f8-f7615a7984d7",
       "currentStage": "ASSET_CHECK",
       "title": "午后肖像",
       "status": "FAILED",
@@ -180,21 +186,21 @@
         {
           "errorMessage": "素材检查未能完成：已触发演示失败，请新建任务",
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:15.487+00:00",
-          "startedAt": "2026-10-28T08:16:15.431+00:00",
-          "taskId": "eb1fc7dd-4c45-4ef3-a22f-92238f796afc",
+          "finishedAt": "2026-10-29T02:21:43.319+00:00",
+          "startedAt": "2026-10-29T02:21:43.260+00:00",
+          "taskId": "f2722469-dd8a-4ee7-b1f8-f7615a7984d7",
           "sequenceNo": 0,
           "status": "FAILED"
         },
         {
           "stage": "GENERATE",
-          "taskId": "eb1fc7dd-4c45-4ef3-a22f-92238f796afc",
+          "taskId": "f2722469-dd8a-4ee7-b1f8-f7615a7984d7",
           "sequenceNo": 1,
           "status": "PENDING"
         },
         {
           "stage": "FINALIZE",
-          "taskId": "eb1fc7dd-4c45-4ef3-a22f-92238f796afc",
+          "taskId": "f2722469-dd8a-4ee7-b1f8-f7615a7984d7",
           "sequenceNo": 2,
           "status": "PENDING"
         }
@@ -203,10 +209,10 @@
     {
       "errorMessage": "模拟生成未能完成：已触发演示失败，请新建任务",
       "stateVersion": 3,
-      "finishedAt": "2026-10-28T08:16:15.723+00:00",
-      "createdAt": "2026-10-28T08:16:15.578+00:00",
+      "finishedAt": "2026-10-29T02:21:43.563+00:00",
+      "createdAt": "2026-10-29T02:21:43.414+00:00",
       "templateId": "portrait",
-      "id": "65f1caf5-cda0-4409-abbd-a09c9939a8e5",
+      "id": "696b08e5-9a66-4ada-af01-3071a05b200c",
       "currentStage": "GENERATE",
       "title": "午后肖像",
       "status": "FAILED",
@@ -214,24 +220,24 @@
       "steps": [
         {
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:15.654+00:00",
-          "startedAt": "2026-10-28T08:16:15.597+00:00",
-          "taskId": "65f1caf5-cda0-4409-abbd-a09c9939a8e5",
+          "finishedAt": "2026-10-29T02:21:43.488+00:00",
+          "startedAt": "2026-10-29T02:21:43.430+00:00",
+          "taskId": "696b08e5-9a66-4ada-af01-3071a05b200c",
           "sequenceNo": 0,
           "status": "SUCCEEDED"
         },
         {
           "errorMessage": "模拟生成未能完成：已触发演示失败，请新建任务",
           "stage": "GENERATE",
-          "finishedAt": "2026-10-28T08:16:15.719+00:00",
-          "startedAt": "2026-10-28T08:16:15.664+00:00",
-          "taskId": "65f1caf5-cda0-4409-abbd-a09c9939a8e5",
+          "finishedAt": "2026-10-29T02:21:43.556+00:00",
+          "startedAt": "2026-10-29T02:21:43.500+00:00",
+          "taskId": "696b08e5-9a66-4ada-af01-3071a05b200c",
           "sequenceNo": 1,
           "status": "FAILED"
         },
         {
           "stage": "FINALIZE",
-          "taskId": "65f1caf5-cda0-4409-abbd-a09c9939a8e5",
+          "taskId": "696b08e5-9a66-4ada-af01-3071a05b200c",
           "sequenceNo": 2,
           "status": "PENDING"
         }
@@ -240,10 +246,10 @@
     {
       "errorMessage": "结果整理未能完成：已触发演示失败，请新建任务",
       "stateVersion": 4,
-      "finishedAt": "2026-10-28T08:16:16.067+00:00",
-      "createdAt": "2026-10-28T08:16:15.850+00:00",
+      "finishedAt": "2026-10-29T02:21:43.914+00:00",
+      "createdAt": "2026-10-29T02:21:43.684+00:00",
       "templateId": "portrait",
-      "id": "369fab0a-3277-4300-9a82-faf4d0f6bbd2",
+      "id": "96653b78-4ebb-4860-966d-7afabc98f637",
       "currentStage": "FINALIZE",
       "title": "午后肖像",
       "status": "FAILED",
@@ -251,26 +257,26 @@
       "steps": [
         {
           "stage": "ASSET_CHECK",
-          "finishedAt": "2026-10-28T08:16:15.930+00:00",
-          "startedAt": "2026-10-28T08:16:15.871+00:00",
-          "taskId": "369fab0a-3277-4300-9a82-faf4d0f6bbd2",
+          "finishedAt": "2026-10-29T02:21:43.765+00:00",
+          "startedAt": "2026-10-29T02:21:43.709+00:00",
+          "taskId": "96653b78-4ebb-4860-966d-7afabc98f637",
           "sequenceNo": 0,
           "status": "SUCCEEDED"
         },
         {
           "stage": "GENERATE",
-          "finishedAt": "2026-10-28T08:16:15.995+00:00",
-          "startedAt": "2026-10-28T08:16:15.938+00:00",
-          "taskId": "369fab0a-3277-4300-9a82-faf4d0f6bbd2",
+          "finishedAt": "2026-10-29T02:21:43.838+00:00",
+          "startedAt": "2026-10-29T02:21:43.781+00:00",
+          "taskId": "96653b78-4ebb-4860-966d-7afabc98f637",
           "sequenceNo": 1,
           "status": "SUCCEEDED"
         },
         {
           "errorMessage": "结果整理未能完成：已触发演示失败，请新建任务",
           "stage": "FINALIZE",
-          "finishedAt": "2026-10-28T08:16:16.062+00:00",
-          "startedAt": "2026-10-28T08:16:16.004+00:00",
-          "taskId": "369fab0a-3277-4300-9a82-faf4d0f6bbd2",
+          "finishedAt": "2026-10-29T02:21:43.908+00:00",
+          "startedAt": "2026-10-29T02:21:43.852+00:00",
+          "taskId": "96653b78-4ebb-4860-966d-7afabc98f637",
           "sequenceNo": 2,
           "status": "FAILED"
         }

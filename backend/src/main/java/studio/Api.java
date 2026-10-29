@@ -2,8 +2,6 @@ package studio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.*;
 import java.security.*;
@@ -156,51 +154,7 @@ public class Api {
   }
 
   byte[] artwork(Map<String, Object> t) throws IOException {
-    BufferedImage image = new BufferedImage(720, 1080, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = image.createGraphics();
-    Color base = Color.decode(t.get("color").toString());
-    g.setPaint(new GradientPaint(0, 0, base.brighter(), 720, 1080, base.darker().darker()));
-    g.fillRect(0, 0, 720, 1080);
-    g.setColor(new Color(255, 244, 210, 210));
-    g.fillOval(390, 110, 210, 210);
-    g.setColor(base.darker());
-    String category = t.get("category").toString();
-    if (category.equals("宠物")) {
-      g.setColor(new Color(244, 224, 187));
-      g.fillOval(115, 390, 490, 400);
-      g.fillPolygon(new int[] {130, 155, 310}, new int[] {530, 285, 440}, 3);
-      g.fillPolygon(new int[] {410, 565, 590}, new int[] {440, 285, 530}, 3);
-      g.setColor(base.darker().darker());
-      g.fillOval(235, 545, 28, 55);
-      g.fillOval(450, 545, 28, 55);
-      g.fillOval(340, 625, 40, 25);
-      g.setStroke(new BasicStroke(4));
-      g.drawLine(270, 650, 110, 620);
-      g.drawLine(270, 675, 100, 690);
-      g.drawLine(450, 650, 610, 620);
-      g.drawLine(450, 675, 620, 690);
-    } else if (category.equals("人像")) {
-      g.setColor(base.darker().darker());
-      g.fillOval(105, 590, 500, 650);
-      g.setColor(new Color(236, 197, 161));
-      g.fillOval(235, 310, 250, 350);
-      g.setColor(base.darker().darker());
-      g.fillArc(215, 280, 290, 280, 0, 190);
-      g.setColor(new Color(236, 197, 161));
-      g.fillRect(312, 610, 98, 90);
-    } else {
-      g.fillPolygon(new int[] {-100, 250, 500, 850}, new int[] {850, 390, 790, 1080}, 4);
-      if (t.get("id").equals("postcard")) {
-        g.setColor(new Color(85, 180, 191));
-        g.fillRect(0, 690, 720, 390);
-      }
-    }
-    g.setColor(new Color(255, 255, 255, 40));
-    for (int i = 0; i < 12; i++) g.drawOval(-300, 600 + i * 25, 1400, 350);
-    g.dispose();
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    ImageIO.write(image, "png", out);
-    return out.toByteArray();
+    return Artwork.render(t);
   }
 
   @PostMapping("/assets")
@@ -214,8 +168,13 @@ public class Api {
     byte[] b = file.getBytes();
     boolean png = b.length > 8 && b[0] == (byte) 137 && b[1] == 80;
     boolean jpg = b.length > 3 && b[0] == (byte) 255 && b[1] == (byte) 216;
-    if ((!png && !jpg) || ImageIO.read(new ByteArrayInputStream(b)) == null)
-      throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "请选择有效的 JPEG 或 PNG 图片");
+    try {
+      if ((!png && !jpg) || ImageIO.read(new ByteArrayInputStream(b)) == null)
+        throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "请选择有效的 JPEG 或 PNG 图片");
+    } catch (IOException e) {
+      throw new ResponseStatusException(
+          HttpStatus.UNSUPPORTED_MEDIA_TYPE, "图片内容损坏，请重新选择有效的 JPEG 或 PNG 图片", e);
+    }
     String id = uuid();
     Files.write(root.resolve(id), b);
     String mime = png ? "image/png" : "image/jpeg";

@@ -64,6 +64,7 @@ export default function Studio({
     [loadingMore, setLoadingMore] = useState(false);
   const [switching, setSwitching] = useState(false);
   const [demoEnabled, setDemoEnabled] = useState(false);
+  const [trackingGeneration, setTrackingGeneration] = useState(0);
   const epoch = useRef(0),
     uploadSeq = useRef<number[]>([]),
     controllers = useRef(new Set<AbortController>()),
@@ -129,7 +130,10 @@ export default function Studio({
       if (generation === epoch.current) setError((e as Error).message);
     } finally {
       controllers.current.delete(controller);
-      if (generation === epoch.current) setLoading(false);
+      if (generation === epoch.current) {
+        setTrackingGeneration(generation);
+        setLoading(false);
+      }
     }
   }, [initialTemplate]);
   const invalidateRequests = useCallback(() => {
@@ -156,7 +160,8 @@ export default function Studio({
     .sort()
     .join(",");
   useEffect(() => {
-    const generation = epoch.current;
+    if (loading || trackingGeneration !== epoch.current) return;
+    const generation = trackingGeneration;
     return trackTasks(
       pendingIds ? pendingIds.split(",") : [],
       (id, signal) => api<Task>("/tasks/" + id, { signal }),
@@ -164,7 +169,7 @@ export default function Studio({
       (id) => setTasks((old) => queryFailed(old, id)),
       () => generation === epoch.current,
     );
-  }, [pendingIds, user]);
+  }, [pendingIds, user, loading, trackingGeneration]);
   function choose(t: Template | null) {
     if (switchingRef.current) return;
     router.push(t ? "/templates/" + t.id : "/");
@@ -445,7 +450,7 @@ export default function Studio({
                   · 每张 {selected.maxFileSizeBytes / 1048576} MiB
                 </small>
               </div>
-              <div className="slots">
+              <div className={"slots" + (slots.length > 1 ? " multiple" : "")}>
                 {slots.map((slot, i) => (
                   <div className="slot" key={i}>
                     {slot.previewUrl && (
@@ -525,8 +530,8 @@ export default function Studio({
           <>
             <div className="catalog-title">
               <div>
-                <h1>把照片，变成新的故事。</h1>
-                <p>挑一个模板，从你喜欢的画面开始。</p>
+                <h1>模板素材</h1>
+                <p>选择模板，上传照片开始制作</p>
               </div>
               <span>{templates.length} 个精选模板</span>
             </div>
@@ -563,7 +568,7 @@ export default function Studio({
                   </button>
                 ))}
             </div>
-            {templates.length === 0 && (
+            {templates.length === 0 && !error && (
               <div className="empty">
                 暂时没有模板
                 <button onClick={() => void initialize()}>重新加载</button>
