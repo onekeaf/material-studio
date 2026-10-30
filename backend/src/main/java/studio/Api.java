@@ -51,9 +51,9 @@ public class Api {
 
   String hash(String token) {
     try {
-      return HexFormat.of()
-          .formatHex(
-              MessageDigest.getInstance("SHA-256")
+      return Base64.getUrlEncoder()
+          .withoutPadding().encodeToString(
+              MessageDigest.getInstance("SHA-384")
                   .digest(token.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
     } catch (Exception e) {
       throw new IllegalStateException(e);

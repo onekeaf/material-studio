@@ -49,7 +49,7 @@ services:
     volumes:
       - ./scripts:/tests:ro
       - ./docs/evidence:/evidence
-      - ./demo-assets:/demo
+      - ./demo-assets:/demo:ro
     command: [python, smoke.py]
     depends_on: [frontend]
   frontend-check:

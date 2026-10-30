@@ -71,7 +71,7 @@ docker compose run --rm smoke
 | backend-check | mvn -B verify，执行 Java 测试并打包 |
 | smoke | 访问运行中的 Next / Java / MySQL，验证上传、受理、三步执行、失败中断、多任务、隔离与结果 |
 
-`smoke` 使用默认 `DEMO_ENABLED=true`，会创建测试访客和任务，并更新 `docs/evidence/smoke.json`。单元测试不要求数据库运行；真实业务验收需要先启动三服务。构建缓存命中时不会重复执行 Dockerfile 中的旧层，独立 check 入口仍会实际运行检查命令。
+`smoke` 使用默认 `DEMO_ENABLED=true`，会创建测试访客、上传素材和制作任务，写入数据库及文件卷，并更新 `docs/evidence/smoke.json`；测试图片保存在脚本内存中，不改写随源码提供的 demo.png。单元测试不要求数据库运行；真实业务验收需要先启动三服务。构建缓存命中时不会重复执行 Dockerfile 中的旧层，独立 check 入口仍会实际运行检查命令。
 
 查看日志或停止服务：
 
@@ -145,7 +145,7 @@ docker compose exec -T mysql sh -c 'mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$
 {
   "assetId": "服务端生成的素材ID",
   "mimeType": "image/png",
-  "sizeBytes": 72299,
+  "sizeBytes": 94150,
   "previewUrl": "/api/assets/服务端生成的素材ID/content"
 }
 ```
@@ -179,7 +179,7 @@ docker compose exec -T mysql sh -c 'mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$
 
 上面两段用于说明结果字段，完整响应还包含模板、创建时间等公共字段。
 
-参数不合法返回 400，身份无效返回 401，不存在或无权访问返回 404，文件超限返回 413，类型或解码失败（含截断的 PNG / JPEG）返回 415，代理无法连接 Java 时返回 503。损坏图片在写文件和创建素材记录前被拒绝；磁盘或数据库故障不伪装为图片类型错误。错误响应的 `message` 用于界面提示。只有查询成功且任务 `status=FAILED` 才是已知执行失败；网络错误或 5xx 属于查询异常。
+参数不合法返回 400，身份无效返回 401；读取不存在或无权访问的素材、任务、结果返回 404，创建任务时引用不存在或不属于当前访客的素材返回 400。文件超限返回 413，类型或解码失败（含截断的 PNG / JPEG）返回 415，代理无法连接 Java 时返回 503。损坏图片在写文件和创建素材记录前被拒绝；磁盘或数据库故障不伪装为图片类型错误。错误响应的 `message` 用于界面提示。只有查询成功且任务 `status=FAILED` 才是已知执行失败；网络错误或 5xx 属于查询异常。
 
 ## 5. 任务状态、阶段与后台执行
 
@@ -230,11 +230,13 @@ docker compose run --rm demo --persona A --delay 10000
 
 ## 7. 用户身份与个人记录
 
-使用匿名访客方案，不实现邮箱密码或第三方登录。Java 创建随机、不透明的 `studio` Cookie，设置 HttpOnly、SameSite=Lax 和 30 天有效期；数据库保存令牌摘要和访客 ID。每个素材、任务、历史及结果接口检查当前访客归属，不属于当前访客的资源返回 404。
+使用匿名访客方案，不实现邮箱密码或第三方登录。Java 创建随机、不透明的 `studio` Cookie，设置 HttpOnly、SameSite=Lax 和 30 天有效期；数据库保存 SHA-384 令牌摘要（Base64 URL 编码为 64 字符）和访客 ID。每个素材、任务、历史及结果接口检查当前访客归属；越权读取返回 404，提交不属于当前访客的素材返回 400。
 
 刷新和同一浏览器再次访问会复用有效 Cookie。使用无痕窗口可创建独立访客，验证个人记录隔离。演示模式额外提供固定访客 A / B，便于重复验收；切换时清理旧请求和旧用户界面，A 的记录不会显示到 B。演示令牌是本地固定值，不作为正式认证凭据。
 
 清除 Cookie 后无法找回随机匿名身份，不支持跨设备登录。关闭 `DEMO_ENABLED` 后不显示演示切换入口，开发切换接口返回 404。HTTPS 部署时设置 `COOKIE_SECURE=true`；本地 HTTP 保持 false。
+
+从旧版令牌摘要方案升级时，已有随机匿名 Cookie 无法与新摘要匹配，将建立新访客；旧访客和历史仍在数据库中，但新访客不能读取它们。需要保持旧匿名访问时应先保留旧版应用、数据库和文件备份，不直接升级该环境。固定演示访客 A/B 再次切换时更新其摘要并复用原访客 ID，因此可继续查看原演示记录。数据库字段长度无需变更；本项目不生成压缩包摘要校验文件。
 
 ## 8. CI 与验证
 
@@ -244,7 +246,7 @@ docker compose run --rm demo --persona A --delay 10000
 
 本地容器构建、测试和运行结果见 `docs/acceptance-report.md` 及其证据文件。远程运行状态以 [GitHub Actions](https://github.com/onekeaf/material-studio/actions) 中对应提交的 checks 工作流为准，本地和远程验证记录分别保留。
 
-逐项测试覆盖、源码审阅和浏览器检查的对应关系及未验证边界见 `docs/test-matrix.md`。当前自动测试包含前端 37 项、Java 25 项，另有使用真实 MySQL 的接口验收；数量不代表覆盖了所有可能输入。
+逐项测试覆盖、源码审阅和浏览器检查的对应关系及未验证边界见 `docs/test-matrix.md`。当前自动测试包含前端 37 项、Java 26 项，另有使用真实 MySQL 的接口验收；数量不代表覆盖了所有可能输入。
 
 ## 9. 完成情况、限制、实际投入与取舍
 
@@ -274,6 +276,7 @@ docker compose run --rm demo --persona A --delay 10000
 | 2026-10-29 09:31:54～09:32:22 | 本地容器重部署记录窗口 | 不足 1 分钟 |
 | 2026-10-29 09:35:04～09:50:33 | 正式卷面复核、异常复现、容器回归与审查报告记录窗口 | 约 15 分钟 |
 | 2026-10-29 09:56:54～10:21:53 | 缺陷修复、视觉调整、扩充测试与本地容器验证 | 约 25 分钟 |
+| 2026-10-30 17:02:40～17:09:37 | 文档一致性修正、摘要方案调整、离线容器测试与独立 MySQL 验证 | 约 7 分钟 |
 
 上述为可确认的 AI 辅助执行墙钟记录，不能等同于人工编码工时；前期资料整理、人工阅读和最后的 CI 等待及打包未完整独立计时。选择单线程队列、预置图、本地数据卷、匿名身份和轮询，是为了把时间用于异步状态、失败边界和可复现验证，避免引入题目未要求的外部服务。
 
@@ -283,7 +286,7 @@ docker compose run --rm demo --persona A --delay 10000
 
 更新保留命名卷，使用兼容的数据库变更；现有卷不会自动应用新的初始化 SQL。健康检查通过后，验证一个成功任务、一个失败任务及历史读取。日常停机使用 `docker compose down`，不删除卷。
 
-需要回滚时，停止新应用，恢复上一版应用镜像和配置，以 `docker compose up -d --no-build --force-recreate backend frontend` 重新创建应用，再做健康和业务检查。若 schema 不兼容，必须同时恢复对应数据库及文件备份，不能只回滚代码。更详细的步骤和边界见 `docs/deployment-and-rollback.md`；未声称执行过生产部署或灾备演练。
+需要回滚时，停止新应用，恢复上一版应用镜像和配置，以 `docker compose up -d --no-build --force-recreate backend frontend` 重新创建应用，再做健康和业务检查。若 schema 或身份摘要方案不兼容，必须同时恢复对应数据库及文件备份，不能只回滚代码。更详细的步骤和边界见 `docs/deployment-and-rollback.md`；未声称执行过生产部署或灾备演练。
 
 ## 11. AI 使用与工作流
 
@@ -305,7 +308,3 @@ docker compose run --rm demo --persona A --delay 10000
 | 本项目自制素材与页面文件 | Graphics2D 封面 / 结果 / 示例 PNG，以及页面、业务代码和 SQL；未整体复用已有业务项目 |
 
 格式化曾使用 Prettier 和 Google Java Format，不属于应用运行依赖。补充来源记录见 `THIRD_PARTY_NOTICES.md`。
-
-
-
-

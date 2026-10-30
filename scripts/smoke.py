@@ -15,7 +15,11 @@ else: raise RuntimeError('services did not become ready')
 req(a,'/session',{});req(b,'/session',{})
 from concurrent.futures import ThreadPoolExecutor
 with ThreadPoolExecutor(max_workers=2) as pool:
-    identities=list(pool.map(lambda _:req(client(),'/dev/session/switch',{'persona':'A'}),range(2)))
+    def switch_and_read(_):
+        visitor=client()
+        req(visitor,'/dev/session/switch',{'persona':'A'})
+        return req(visitor,'/me')
+    identities=list(pool.map(switch_and_read,range(2)))
 assert all(identity['id']=='演示访客A' for identity in identities)
 assert req(a,'/me')['demoEnabled'] is True
 templates=req(a,'/templates');assert len(templates)==12
@@ -26,7 +30,6 @@ for template in templates:
 assert next(t for t in templates if t['id']=='portrait')['title']=='午后肖像', 'seed encoding must be UTF-8'
 assert all('required_image_count' not in t and 'requiredImageCount' in t for t in templates)
 image=req(a,'/public/cover/portrait');assert image[:4]==b'\x89PNG'
-pathlib.Path('/demo/demo.png').write_bytes(image)
 def upload(c,body=image):
     boundary='StudioBoundary'
     data=(f'--{boundary}\r\nContent-Disposition: form-data; name="templateId"\r\n\r\nportrait\r\n--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="demo.png"\r\nContent-Type: image/png\r\n\r\n').encode()+body+f'\r\n--{boundary}--\r\n'.encode()

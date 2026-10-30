@@ -1,5 +1,11 @@
 # 本地容器验收记录
 
+## 2026-10-30 README 与身份方案一致性
+
+前端容器 lint、类型、37 项测试和构建通过；当前后端源码挂载到已有依赖缓存的构建容器后执行离线 Maven verify，26 项测试和打包通过。默认后端构建首次下载依赖时遇到 TLS 握手失败，因此本地没有将默认联网构建标为通过；默认构建流程的结果看该提交的远程 CI。
+
+使用上述新 JAR 和已有 Java 21 运行镜像，在独立 Compose 项目和全新 MySQL / 文件卷上运行完整 smoke 通过。额外将 A 演示访客设为旧摘要格式并写入历史，再切换 A，验证新摘要生效且旧历史仍可读；示例 PNG 在 smoke 前后逐字节一致。证据为 `evidence/readme-final-frontend.log`、`readme-final-backend.log`、`readme-final-smoke.log`、`readme-final-migration.log` 和 `readme-final-sample.log`。随机匿名身份升级的限制及回滚要求已在 README 说明。未执行生产部署或恢复演练。
+
 ## 2026-10-29 修复及扩展测试
 
 - `frontend-check`：lint、类型检查、37 个测试和生产构建通过，见 `evidence/fix-expanded-frontend.log`。

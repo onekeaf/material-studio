@@ -1,0 +1,8 @@
+ Container readme-final-1030-mysql-1  Running
+ Container readme-final-1030-backend-1  Running
+ Container readme-final-1030-frontend-1  Running
+ Container readme-final-1030-mysql-1  Waiting
+ Container readme-final-1030-mysql-1  Healthy
+ Container readme-final-1030-backend-1  Waiting
+ Container readme-final-1030-backend-1  Healthy
+{"result": "PASS", "time": "2026-10-30T09:09:37Z", "checks": ["twelve templates and local PNG covers", "three categories and 1/2/3 image requirements", "one/two/three asset tasks", "real PNG upload", "invalid and damaged images rejected", "oversized file rejected", "asset ownership and duplicate assets", "unauthenticated and cross-user access denied", "invalid pagination and simulation parameters", "active and pending-result boundaries", "async acceptance", "completion without queries", "three persisted steps", "terminal stability", "success result PNG", "task and result ownership", "three deterministic stage failures stop later steps", "three independent queued tasks", "personal history and pagination"]}

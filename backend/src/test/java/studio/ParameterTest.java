@@ -20,6 +20,29 @@ class ParameterTest {
   @TempDir Path directory;
 
   @Test
+  void opaqueCookieResolvesItsOwnerWithoutStoringTheRawToken() throws Exception {
+    Store store = mock(Store.class);
+    Map<String, String> identities = new HashMap<>();
+    when(store.visitor(anyString())).thenAnswer(call -> identities.get(call.getArgument(0)));
+    doAnswer(call -> {
+      identities.put(call.getArgument(1), call.getArgument(0));
+      return null;
+    }).when(store).visitorAdd(anyString(), anyString());
+    Api api = new Api(store, mock(Pipeline.class), mock(PlatformTransactionManager.class),
+        directory.toString(), true, new ObjectMapper());
+    var response = new MockHttpServletResponse();
+    api.identity("owner", "opaque-token", response);
+    assertFalse(identities.containsKey("opaque-token"));
+    assertEquals(64, identities.keySet().iterator().next().length());
+    var request = new MockHttpServletRequest();
+    request.setCookies(new Cookie("studio", "opaque-token"));
+    assertEquals("owner", api.owner(request));
+    request.setCookies(new Cookie("studio", "unrelated-token"));
+    assertEquals(401, assertThrows(ResponseStatusException.class,
+        () -> api.owner(request)).getStatusCode().value());
+  }
+
+  @Test
   void rejectedQueuePersistsFailureAfterCreatingTask() throws Exception {
     Store store = mock(Store.class);
     Pipeline pipeline = mock(Pipeline.class);

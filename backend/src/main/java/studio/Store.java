@@ -14,7 +14,7 @@ public interface Store {
   @Select("SELECT id FROM visitors WHERE token=#{token}")
   String visitor(String token);
 
-  @Insert("INSERT INTO visitors VALUES(#{id},#{token}) ON DUPLICATE KEY UPDATE id=id")
+  @Insert("INSERT INTO visitors VALUES(#{id},#{token}) ON DUPLICATE KEY UPDATE token=VALUES(token)")
   void visitorAdd(@Param("id") String id, @Param("token") String token);
 
   @Insert("INSERT INTO assets VALUES(#{id},#{owner},#{mime},#{size},#{path})")

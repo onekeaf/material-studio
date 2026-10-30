@@ -1,0 +1,8 @@
+ Container readme-final-1030-mysql-1  Running
+ Container readme-final-1030-backend-1  Running
+ Container readme-final-1030-frontend-1  Running
+ Container readme-final-1030-mysql-1  Waiting
+ Container readme-final-1030-mysql-1  Healthy
+ Container readme-final-1030-backend-1  Waiting
+ Container readme-final-1030-backend-1  Healthy
+PASS: existing demo identity token updated; old owned history remains readable
